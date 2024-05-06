@@ -3,12 +3,10 @@
 // This file is part of CLIP
 //
 // CLIP is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-// 
+//
 // CLIP is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-// 
+//
 // You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-
 
 mod from_str;
 mod try_parse;
@@ -29,7 +27,7 @@ use proc_macro::TokenStream;
 /// # #[macro_use] extern crate clip_derive;
 /// use clip_derive::FromStr;
 /// use std::str::FromStr;
-/// 
+///
 /// ##[derive(Debug, PartialEq, FromStr)]
 /// enum Random { One, Two, Three }
 ///
@@ -81,7 +79,7 @@ pub fn from_str_macro_derive(input: TokenStream) -> TokenStream {
 ///     toto: u8,
 /// }
 /// ```
-/// 
+///
 ///
 /// # Enum
 /// For an enumeration, the first positional parameter corresponds to the Variant (case insensitive
