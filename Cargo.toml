@@ -16,6 +16,7 @@ readme = "README.md"
 license = "GPL-3.0-or-later"
 keywords = ["parsing"]
 categories = ["command-line-interface", "parsing"]
+repository = "https://github.com/ClaXXX/clip.git"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [features]
