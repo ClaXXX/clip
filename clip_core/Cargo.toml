@@ -1,0 +1,6 @@
+[package]
+name = "clip_core"
+description = "Defines clip core traits"
+version = "0.1.0"
+edition = "2021"
+

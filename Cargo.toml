@@ -1,0 +1,26 @@
+[workspace]
+members = [
+  "clip_core",  "clip_derive"
+]
+
+[workspace.package]
+license = "GPL-3.0-or-later"
+
+[package]
+name = "clip"
+description = "Command line interpretor parser"
+authors = ["Claire Bts <claxxx.bts@gmail.com>"]
+version = "0.1.0"
+edition = "2021"
+readme = "README.md"
+license = "GPL-3.0-or-later"
+keywords = ["parsing"]
+categories = ["command-line-interface", "parsing"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[features]
+derive = ["dep:clip_derive"]
+
+[dependencies]
+clip_core = { version = "0.1.0", path = "./clip_core/" }
+clip_derive = { version = "0.1.0", path = "./clip_derive/", optional = true }
