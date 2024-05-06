@@ -1,0 +1,38 @@
+name: Cargo Build & Test
+
+on:
+  push:
+  pull_request:
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  # msrv:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v4
+  #   - uses: taiki-e/install-action@cargo-hack
+  #   - run: cargo hack check --rust-version --workspace --all-targets --ignore-private
+
+  build:
+    name: clip - latest
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        toolchain:
+          - stable
+          - beta
+          - nightly
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Toolchain
+      run: rustup update ${{ matrix.toolchain }} && rustup default ${{ matrix.toolchain }}
+    - name: Dependencies
+      run: cargo update --verbose
+    - name: Build
+      run: cargo build --verbose --all-features
+    - name: Run tests
+      run: cargo test --verbose --workspace
+
