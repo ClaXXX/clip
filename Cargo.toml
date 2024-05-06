@@ -7,8 +7,8 @@ members = [
 license = "GPL-3.0-or-later"
 
 [package]
-name = "clip"
-description = "Command line interpretor parser"
+name = "clipv"
+description = "Command line interpretor parser (and future validator)"
 authors = ["Claire Bts <claxxx.bts@gmail.com>"]
 version = "0.1.0"
 edition = "2021"
