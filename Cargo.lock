@@ -3,14 +3,6 @@
 version = 3
 
 [[package]]
-name = "clip"
-version = "0.1.0"
-dependencies = [
- "clip_core",
- "clip_derive",
-]
-
-[[package]]
 name = "clip_core"
 version = "0.1.0"
 
@@ -22,6 +14,14 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
+]
+
+[[package]]
+name = "clipv"
+version = "0.1.0"
+dependencies = [
+ "clip_core",
+ "clip_derive",
 ]
 
 [[package]]

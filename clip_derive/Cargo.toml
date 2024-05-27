@@ -4,7 +4,7 @@ description = "Provides helpers to derive clip_core traits"
 readme = "README.md"
 version = "0.1.0"
 edition = "2021"
-author = "Claire Bts <claxxx.bts@gmail.com>"
+authors = ["Claire Bts <claxxx.bts@gmail.com>"]
 license = "GPL-3.0-or-later"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

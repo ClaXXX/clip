@@ -1,7 +1,7 @@
 [package]
 name = "clip_core"
 description = "Defines clip core traits"
-author = "Claire Bts <claxxx.bts@gmail.com>"
+authors = ["Claire Bts <claxxx.bts@gmail.com>"]
 readme = "README.md"
 version = "0.1.0"
 edition = "2021"
