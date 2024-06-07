@@ -1,7 +1,7 @@
 //SPDX-FileCopyrightText: 2024 Claire Bts <claxxx.bts@gmail.com>
 //SPDX-License-Identifier: GPL-3.0-or-later
 
-// clip_derive aims to simplify writing cli and/or parser in general
+// clip aims to simplify writing cli and/or parser in general
 
 //Copyright (C) 2024 Claire Bts claxxx.bts@gmail.com
 
@@ -23,6 +23,28 @@ pub struct Formatter<'a> {
     pub start: Option<&'a str>,
     pub end: Option<&'a str>,
     pub middle: Option<&'a str>,
+    pub new_line_chars: Option<&'a str>,
+}
+
+/// Adds characters to each line of a string
+pub fn start_with(string: String, chars: &str) -> String {
+    let mut result = String::new();
+    for line in string.lines() {
+        result.push_str(format!("{chars}{line}\n").as_str());
+    }
+    result
+}
+
+pub fn start_other_lines_with(string: String, chars: &str) -> String {
+    let mut iterator = string.lines();
+    let mut result = String::new();
+    if let Some(first_line) = iterator.next() {
+        result.push_str(format!("{first_line}\n").as_str());
+    }
+    for line in iterator {
+        result.push_str(format!("{chars}{line}\n").as_str());
+    }
+    result
 }
 
 impl<'a> Formatter<'a> {
@@ -39,9 +61,12 @@ impl<'a> Formatter<'a> {
                 "".to_string(),
                 |string: String, item: String| {
                     format!(
-                        "{string}{middle}{start}{item}{end}",
+                        "{string}{middle}{start}{content}{end}",
                         start = self.start.unwrap_or(""),
-                        middle = if string.len() == 0 {
+                        content = if let Some(chars) = self.new_line_chars {
+                            start_other_lines_with(item, chars)
+                        } else { item },
+                        middle = if string.is_empty() {
                             ""
                         } else {
                             self.middle.unwrap_or("")
@@ -98,7 +123,8 @@ mod tests {
                 end: Some(">"),
                 middle: Some(" "),
                 very_start: Some("Result: "),
-                very_end: Some(".")
+                very_end: Some("."),
+                new_line_chars: None,
             }
             .fmt([1, 2, 3].iter(), |item| Some(item.to_string())),
             "Result: <1> <2> <3>."
@@ -106,7 +132,7 @@ mod tests {
     }
 
     #[test]
-    fn it_should_fmt_and_filter_None_values() {
+    fn it_should_fmt_and_filter_none_values() {
         assert_eq!(
             Formatter {
                 start: Some("<"),
