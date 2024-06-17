@@ -70,10 +70,14 @@ pub fn from_str_macro_derive(input: TokenStream) -> TokenStream {
 ///
 /// For instance the following structure will expect `<titi> <tata> <toto>` in this order only.
 /// ```
-/// # #[macro_use] extern crate clip_derive;
 /// # extern crate clip_core;
-/// use clip_core::parser::{Parsed, ParsingError, TryParse};
-/// use clip_derive::TryParse;
+/// # #[macro_use] extern crate clip_derive;
+/// # use clip_derive;
+/// # mod clipv {
+/// #    pub use clip_derive::*;
+/// #    pub use clip_core::*;
+/// # }
+/// use clipv::TryParse;
 ///
 /// ##[derive(TryParse)]
 /// struct Toto {
@@ -95,8 +99,11 @@ pub fn from_str_macro_derive(input: TokenStream) -> TokenStream {
 /// ```
 /// # #[macro_use] extern crate clip_derive;
 /// # extern crate clip_core;
-/// use clip_core::parser::{Parsed, ParsingError, TryParse};
-/// use clip_derive::TryParse;
+/// # mod clipv {
+/// #    pub use clip_derive::*;
+/// #    pub use clip_core::*;
+/// # }
+/// use clipv::{parser::{Parsed, TryParse}, TryParse};
 ///
 /// ##[derive(Debug, PartialEq, TryParse)]
 /// enum Tata { One, Two, Three }

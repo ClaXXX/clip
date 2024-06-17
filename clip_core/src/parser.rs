@@ -16,6 +16,8 @@ pub enum ParsingError {
     BadType,
     /// For an enumeration, Error if no value matched the input
     VariantNotFound,
+    TooManyArguments,
+    Help
 }
 
 /// Generic container. No constraint exists for this type expect for its field number.
@@ -27,9 +29,20 @@ pub struct Parsed<T, I>(pub T, pub I);
 /// It takes an iterator and return what's left once all values have been parsed
 /// It's very similar to and inspired by TryFrom from the std::convert library. It just is adapted to
 /// browse an iterator
-pub trait TryParse<I>: Sized {
+pub trait TryParse<Item, T = Self> {
     type Error;
 
-    /// Required method
-    fn try_parse(value: I) -> Result<Parsed<Self, I>, Self::Error>;
+    /// Required metho
+    fn try_parse<I: Iterator<Item=Item>>(value: I) -> Result<Parsed<T, I>, Self::Error>;
+}
+
+pub fn parse<'a, T, R>(args: impl Iterator<Item = &'a &'a str>, callback: impl FnOnce(T) -> R) -> Result<R, ParsingError>
+    where
+        T: TryParse<&'a &'a str, Error = ParsingError> {
+    match T::try_parse(args) {
+        Ok(Parsed(parsed, mut rest)) => if rest.next().is_some() {
+            Err(ParsingError::TooManyArguments)
+        } else { Ok(callback(parsed))},
+        Err(err) => Err(err)
+    }
 }
