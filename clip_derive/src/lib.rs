@@ -8,6 +8,9 @@
 //
 // You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+mod as_arg;
+mod as_command;
+mod attribute;
 mod from_str;
 mod try_parse;
 use proc_macro::TokenStream;
@@ -118,4 +121,18 @@ pub fn try_parse_macro_derive(input: TokenStream) -> TokenStream {
     let ast = syn::parse(input).unwrap();
 
     crate::try_parse::impl_try_parse_macro(&ast)
+}
+
+#[proc_macro_derive(AsArg, attributes(choices, group))]
+pub fn as_arg_macro_derive(input: TokenStream) -> TokenStream {
+    let ast = syn::parse(input).unwrap();
+
+    crate::as_arg::impl_as_arg_macro(&ast)
+}
+
+#[proc_macro_derive(AsCommand, attributes(commands, command, choices, group))]
+pub fn as_command_macro_derive(input: TokenStream) -> TokenStream {
+    let ast = syn::parse(input).unwrap();
+
+    crate::as_command::impl_as_command_macro(&ast)
 }

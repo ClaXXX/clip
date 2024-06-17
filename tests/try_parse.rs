@@ -8,8 +8,10 @@
 //
 // You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-use clip_core::parser::{Parsed, ParsingError, TryParse};
-use clip_derive::{FromStr, TryParse};
+#[cfg(feature = "derive")]
+mod test {
+use clipv::parser::{Parsed, ParsingError, TryParse};
+use clipv::{FromStr, TryParse};
 
 #[derive(Debug, PartialEq, TryParse)]
 struct Empty;
@@ -125,7 +127,7 @@ fn it_should_raise_too_few_argument_command() {
         assert_eq!(result.err(), Some(ParsingError::TooFewArguments));
     }
     {
-        let arguments = [];
+        let arguments: [&'static str; 0] = [];
         let result = Command::try_parse(arguments.iter());
         assert_eq!(result.err(), Some(ParsingError::TooFewArguments));
     }
@@ -163,4 +165,5 @@ fn it_should_parse_the_parent() {
         }
     );
     assert_eq!(rest.next(), Some("end").as_ref());
+}
 }

@@ -8,7 +8,9 @@
 //
 // You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-use clip_derive::*;
+#[cfg(feature = "derive")]
+mod derive_test {
+use clipv::*;
 #[derive(Debug, PartialEq, FromStr)]
 enum Unit {
     One,
@@ -30,4 +32,5 @@ fn it_should_raise_variant_not_found() {
         Err(String::from("Unexistant variant unexistant"))
     );
     assert_eq!("".parse::<Unit>(), Err(String::from("Unexistant variant ")));
+}
 }
