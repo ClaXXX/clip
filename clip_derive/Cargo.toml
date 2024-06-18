@@ -2,7 +2,7 @@
 name = "clip_derive"
 description = "Provides helpers to derive clip_core traits"
 readme = "README.md"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 authors = ["Claire Bts <claxxx.bts@gmail.com>"]
 license = "GPL-3.0-or-later"
@@ -17,4 +17,4 @@ quote = "1.0.36"
 syn = { version = "2.0.60", features = ["full"] }
 
 [dev-dependencies]
-clip_core = { version = "0.1.0", path = "../clip_core/" }
+clip_core = { version = "0.2.0", path = "../clip_core/" }

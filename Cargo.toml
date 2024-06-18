@@ -10,7 +10,7 @@ license = "GPL-3.0-or-later"
 name = "clipv"
 description = "Command line interpretor parser (and future validator)"
 authors = ["Claire Bts <claxxx.bts@gmail.com>"]
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 readme = "README.md"
 license = "GPL-3.0-or-later"
@@ -23,5 +23,5 @@ repository = "https://github.com/ClaXXX/clip.git"
 derive = ["dep:clip_derive"]
 
 [dependencies]
-clip_core = { version = "0.1.0", path = "./clip_core/" }
-clip_derive = { version = "0.1.0", path = "./clip_derive/", optional = true }
+clip_core = { version = "0.2.0", path = "./clip_core/" }
+clip_derive = { version = "0.2.0", path = "./clip_derive/", optional = true }
