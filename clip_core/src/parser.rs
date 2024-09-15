@@ -17,7 +17,6 @@ pub enum ParsingError {
     /// For an enumeration, Error if no value matched the input
     VariantNotFound,
     TooManyArguments,
-    Help
 }
 
 /// Generic container. No constraint exists for this type expect for its field number.
