@@ -47,7 +47,7 @@ impl ParsingMacro {
                     },
                 });
             } else {
-                gen.extend(quote! { values.next().map_or(Err(clipv::parser::ParsingError::TooFewArguments), |value| value.parse::<#ty>().or(Err(clipv::parser::ParsingError::BadType)))?, });
+                gen.extend(quote! { values.next().map_or(Err(clipv::parser::ParsingError::TooFewArguments), |value| value.to_string().parse::<#ty>().or(Err(clipv::parser::ParsingError::BadType)))?, });
             }
         }
         Ok(gen)
@@ -94,7 +94,7 @@ impl ParsingMacro {
         Ok(quote! {
             {
                 let keyword = values.next().ok_or(clipv::parser::ParsingError::TooFewArguments)?;
-                match keyword.to_lowercase().as_str() {
+                match keyword.to_string().to_lowercase().as_str() {
                     #gen
                     _ => Err(clipv::parser::ParsingError::VariantNotFound)
                 }
@@ -129,18 +129,10 @@ pub(crate) fn impl_try_parse_macro(ast: &syn::DeriveInput) -> TokenStream {
     }
     .impl_parser(name, &ast.data);
     quote! {
-        impl<'a> clipv::parser::TryParse<&'a str> for #name {
+        impl<'a, T> clipv::parser::TryParse<T> for #name where T: std::string::ToString +std::fmt::Display {
             type Error = clipv::parser::ParsingError;
 
-            fn try_parse<I: std::iter::Iterator<Item = &'a str>>(mut values: I) -> Result<clipv::parser::Parsed<Self, I>, Self::Error> {
-                Ok(clipv::parser::Parsed((#parser), values))
-            }
-        }
-
-        impl<'a> clipv::parser::TryParse<&'a &'a str> for #name {
-            type Error = clipv::parser::ParsingError;
-
-            fn try_parse<I: std::iter::Iterator<Item = &'a &'a str>>(mut values: I) -> Result<clipv::parser::Parsed<Self, I>, Self::Error> {
+            fn try_parse<I: std::iter::Iterator<Item = T>>(mut values: I) -> Result<clipv::parser::Parsed<Self, I>, Self::Error> {
                 Ok(clipv::parser::Parsed((#parser), values))
             }
         }
